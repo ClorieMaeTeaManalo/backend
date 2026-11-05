@@ -11,15 +11,15 @@ export const createBooks = async (req,res) => {
     const book = { name, author };
     
     try{
-        const bookId = await bookServices.createBooks(book);
+        const bookId = await bookServices.createBook(book);
         res.status(200).json({
             success: true,
             message:bookId
         });
     }catch(e){
         console.log(e);
-        res.status(500).json({
-            error: "Internal Server Error"
+        res.status(e.statusCode).json({
+            error: e.message
         });
     }
 }
@@ -37,8 +37,8 @@ export const editBook = async (req, res) => {
         });
     } catch (e) {
         console.log(e);
-        res.status(500).json({
-            error: "Internal Server Error"
+        res.status(e.statusCode).json({
+            error: e.message
         });
     }
 }
@@ -54,8 +54,8 @@ export const deleteBook = async (req, res) => {
         });
     } catch (e) {
         console.log(e);
-        res.status(500).json({
-            error: "Internal Server Error"
+        res.status(e.statusCode).json({
+            error: e.message
         });
     }
 }
